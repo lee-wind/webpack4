@@ -1,0 +1,22 @@
+export default function printMe() {
+    console.log('I get called from print.js1!');
+    console.log('I get called from print.js2!');
+    console.log('I get called from print.js3!');
+    console.log('I get called from print.js4!');
+    console.log('I get called from print.js5!');
+    console.log('I get called from print.js6!');
+    console.log('I get called from print.js7!');
+    console.log('I get called from print.js8!');
+    console.log('I get called from print.js9!');
+    console.log('I get called from print.js10!');
+    console.log('I get called from print.js11!');
+    console.log('I get called from print.js12!');
+    console.log('I get called from print.js13!');
+    console.log('I get called from print.js14!');
+    console.log('I get called from print.js15!');
+    console.log('I get called from print.js16!');
+    console.log('I get called from print.js17!');
+    console.log('I get called from print.js18!');
+    console.log('I get called from print.js19!');
+    console.log('I get called from print.js20!');
+}
