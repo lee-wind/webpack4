@@ -18,11 +18,18 @@ console.log(`isDevelopment: ${isDev}`);
 
 module.exports = {
 
-    entry: './src/index',
+    entry: './src/main',
     output: {
         filename: isDev ? 'js/[name].[hash].js' : 'js/[name].[contenthash].js',
         path: path.resolve(__dirname, '../' + dist),
         publicPath: './'
+    },
+    resolve: {
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js',
+            '@': path.resolve('src'),
+        }
     },
     module: {
         rules: [
@@ -87,7 +94,9 @@ module.exports = {
             chunkFilename: 'css/[id].[contenthash].css',
             ignoreOrder: false,
         }),
-        new HtmlWebpackPlugin({}),
+        new HtmlWebpackPlugin({
+            template: 'index.html'
+        }),
         new ManifestPlugin(),
         new VueLoaderPlugin(),
     ]

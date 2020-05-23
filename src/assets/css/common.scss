@@ -1,0 +1,377 @@
+@import "mixin";
+
+$fontSize: .28rem;
+$color: #000000;
+body{
+  font-size: $fontSize;
+  color: $color;
+}
+.sm{
+  font-size: $fontSize - .04;
+}
+.md{
+  font-size: $fontSize;
+}
+.lg{
+  font-size: $fontSize + .04;
+}
+.xlg{
+  font-size: $fontSize + .08;
+}
+.xxlg{
+  font-size: $fontSize + .12;
+}
+.xxxlg{
+  font-size: $fontSize + .2;
+}
+
+$margin: .3rem;
+.mg{
+  margin: $margin;
+}
+.mg-left{
+  margin-left: $margin;
+}
+.mg-right{
+  margin-right: $margin;
+}
+.mg-top{
+  margin-top: $margin;
+}
+.mg-bottom{
+  margin-bottom: $margin;
+}
+.mg-vertical{
+  margin: $margin 0;
+}
+.mg-horizontal{
+  margin: 0 $margin;
+}
+$marginMd: .2rem;
+.mg-md{
+  margin: $marginMd;
+}
+.mg-left-md{
+  margin-left: $marginMd;
+}
+.mg-right-md{
+  margin-right: $marginMd;
+}
+.mg-top-md{
+  margin-top: $marginMd;
+}
+.mg-bottom-md{
+  margin-bottom: $marginMd;
+}
+.mg-vertical-md{
+  margin: $marginMd 0;
+}
+.mg-horizontal-md{
+  margin: 0 $marginMd;
+}
+$marginSm: .1rem;
+.mg-sm{
+  margin: $marginSm;
+}
+.mg-left-sm{
+  margin-left: $marginSm;
+}
+.mg-right-sm{
+  margin-right: $marginSm;
+}
+.mg-top-sm{
+  margin-top: $marginSm;
+}
+.mg-bottom-sm{
+  margin-bottom: $marginSm;
+}
+.mg-vertical-sm{
+  margin: $marginSm 0;
+}
+.mg-horizontal-sm{
+  margin: 0 $marginSm;
+}
+
+$padding: .3rem;
+.pd{
+  padding: $padding;
+}
+.pd-left{
+  padding-left: $padding;
+}
+.pd-right{
+  padding-right: $padding;
+}
+.pd-top{
+  padding-top: $padding;
+}
+.pd-bottom{
+  padding-bottom: $padding;
+}
+.pd-vertical{
+  padding: $padding 0;
+}
+.pd-horizontal{
+  padding: 0 $padding;
+}
+$paddingMd: .2rem;
+.pd-md{
+  padding: $paddingMd;
+}
+.pd-left-md{
+  padding-left: $paddingMd;
+}
+.pd-right-md{
+  padding-right: $paddingMd;
+}
+.pd-top-md{
+  padding-top: $paddingMd;
+}
+.pd-bottom-md{
+  padding-bottom: $paddingMd;
+}
+.pd-vertical-md{
+  padding: $paddingMd 0;
+}
+.pd-horizontal-md{
+  padding: 0 $paddingMd;
+}
+$paddingSm: .1rem;
+.pd-sm{
+  padding: $paddingSm;
+}
+.pd-left-sm{
+  padding-left: $paddingSm;
+}
+.pd-right-sm{
+  padding-right: $paddingSm;
+}
+.pd-top-sm{
+  padding-top: $paddingSm;
+}
+.pd-bottom-sm{
+  padding-bottom: $paddingSm;
+}
+.pd-vertical-sm{
+  padding: $paddingSm 0;
+}
+.pd-horizontal-sm{
+  padding: 0 $paddingSm;
+}
+
+$border: 1px solid #E6E6E6;
+.bd{
+  border: $border;
+}
+.bd-left{
+  border-left: $border;
+}
+.bd-right{
+  border-right: $border;
+}
+.bd-top{
+  border-top: $border;
+}
+.bd-bottom{
+  border-bottom: $border;
+}
+$borderActive: 1px solid #3092FC;
+.bd-active{
+  border: $borderActive;
+}
+.bd-left-active{
+  border-left: $borderActive;
+}
+.bd-right-active{
+  border-right: $borderActive;
+}
+.bd-top-active{
+  border-top: $borderActive;
+}
+.bd-bottom-active{
+  border-bottom: $borderActive;
+}
+
+.letter-spacing{
+  letter-spacing: .1rem;
+}
+
+.radius{
+  border-radius: .12rem;
+}
+
+.auto{
+  overflow: auto;
+}
+.scroll{
+  overflow: scroll;
+}
+.hidden{
+  overflow: hidden;
+}
+
+.block{
+  display: block;
+  width: 100%;
+}
+.inline-block{
+  display: inline-block;
+}
+
+.flex{
+  @include flex;
+}
+.flex1{
+  flex: 1;
+}
+.flex-center{
+  @include flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-middle{
+  @include flex;
+  align-items: center;
+}
+.space-between{
+  @include flex;
+  justify-content: space-between;
+}
+.space-evenly{
+  @include flex;
+  justify-content: space-evenly;
+}
+.space-around{
+  @include flex;
+  justify-content: space-around;
+}
+.fixed{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+.relative{
+  position: relative;
+}
+.absolute{
+  position: absolute;
+  width: 100%;
+}
+.absolute-left{
+  position: absolute;
+  left: 0;
+}
+.absolute-center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.absolute-right{
+  position: absolute;
+  right: 0;
+}
+
+.text-left{
+  text-align: left;
+}
+.text-center{
+  text-align: center;
+}
+.text-right{
+  text-align: right;
+}
+
+.normal{
+  font-weight: normal;
+}
+.bold{
+  font-weight: bold;
+}
+.bolder{
+  font-weight: bold;
+}
+
+.mg-auto{
+  margin: 0 auto;
+}
+
+.input{
+  input{
+    width: 100%;
+  }
+}
+.circle{
+  border-radius: 50%;
+}
+
+$color: #000000;
+.main-color{
+  color: $color;
+}
+.main-bg{
+  background-color: $color;
+}
+.light-color{
+  color: #999999;
+}
+.light-bg{
+  background-color: #F5F5F5;
+}
+.theme-color{
+  color: #3092FC;
+}
+.theme-bg{
+  color: #ffffff;
+  background-color: #3092FC;
+  //background-image: linear-gradient(to bottom, #A06FFF, #6822F2);
+}
+.white-color{
+  color: #ffffff;
+}
+.white-bg{
+  background-color: #ffffff;
+}
+.red-color{
+  color: #FF5756;
+}
+.red-bg{
+  color: #ffffff;
+  background-color: #FF5756;
+}
+.red-bg-light{
+  background-color: #FEEDED;
+}
+.green-color{
+  color: #07C087;
+}
+.green-bg{
+  color: #ffffff;
+  background-color: #07C087;
+}
+.green-bg-light{
+  background-color: #D2FFF2;
+}
+.orange-color{
+  color: #F27B47;
+}
+.orange-bg{
+  background-color: #F27B47;
+}
+
+.mg-left-auto{
+  margin-left: auto;
+}
+
+.wind-icon{
+  /*display: block;*/
+  width: auto;
+  height: .35rem;
+}
+
+.text-ellipse{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
