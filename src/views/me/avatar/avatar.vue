@@ -8,6 +8,10 @@
                 <img :src="avatar" alt="">
             </div>-->
             <button class="clip" @click="clip">裁剪</button>
+            <div style="position: absolute; right: 0">
+                <p>缩放原点：{{originX}} {{originY}}</p>
+                <p>缩放：{{scaleX}} {{scaleY}}</p>
+            </div>
             <div id="originImgBox">
                 <img :src="avatar" alt="">
             </div>
@@ -41,7 +45,19 @@
                     x: 0,
                     y: 0
                 },
-                end: {
+                firstScaleStartPoint: {
+                    x: 0,
+                    y: 0
+                },
+                firstScaleEndPoint: {
+                    x: 0,
+                    y: 0
+                },
+                lastScaleStartPoint: {
+                    x: 0,
+                    y: 0
+                },
+                lastScaleEndPoint: {
                     x: 0,
                     y: 0
                 },
@@ -49,17 +65,22 @@
                 lastY: 0, //上一次移动Y
                 translateX: 0, //移动X
                 translateY: 0, //移动Y
-                originTranslateX: '', //原始移动X
-                originTranslateY: '', //原始移动Y
                 originImgBox: '',
+                originImgBoxWidth: '',
+                originImgBoxHeight: '',
+                originImg: '',
                 show: '',
-
                 clipStart: {
                     x: 0,
                     y: 0
                 },
                 canvas: '',
                 ctx: '',
+
+                originX: '',
+                originY: '',
+                scaleX: '',
+                scaleY: ''
             }
         },
         mounted(){
@@ -87,19 +108,17 @@
                 this.originImg.onload = () => {
                     if(this.originImg.naturalWidth >= this.originImg.naturalHeight){ //宽大于高
                         this.originImgBox.style.height = height + 'px';
-
                         this.originImg.classList.add('height-block');
-
                     }else{ //宽小于高
                         this.originImgBox.style.width = width + 'px';
                         this.originImg.classList.add('width-block');
                     }
 
-                    /*this.originTranslateX = -this.originImgBox.clientWidth / 2;
-                    this.originTranslateY = -this.originImgBox.clientHeight / 2;*/
+                    this.originImgBoxWidth = this.originImgBox.clientWidth;
+                    this.originImgBoxHeight = this.originImgBox.clientHeight;
 
-                    this.lastX = this.translateX =  -this.originImgBox.clientWidth / 2;
-                    this.lastY = this.translateY = -this.originImgBox.clientHeight / 2;
+                    this.lastX = this.translateX =  -this.originImgBoxWidth / 2;
+                    this.lastY = this.translateY = -this.originImgBoxHeight / 2;
 
                     this.originImgBox.style.transform = `translate(${this.translateX}px, ${this.translateY}px)`
 
@@ -135,25 +154,70 @@
             touchstart(e) {
                 e.preventDefault();
                 console.log('start');
-                let touch = e.touches[0];
-                this.start = {
-                    x: touch.pageX,
-                    y: touch.pageY
+                let touches = e.touches;
+                if(touches.length > 1){
+                    this.firstScaleStartPoint = {
+                        x: touches[0].pageX,
+                        y: touches[0].pageY
+                    }
+                    this.lastScaleStartPoint = {
+                        x: touches[touches.length - 1].pageX,
+                        y: touches[touches.length - 1].pageY
+                    }
+                }else {
+                    let touch = touches[0];
+                    this.start = {
+                        x: touch.pageX,
+                        y: touch.pageY
+                    }
                 }
             },
             touchmove(e) {
                 e.preventDefault();
                 console.log('move');
-                let touch = e.touches[0];
-                 this.end = {
-                    x: touch.pageX,
-                    y: touch.pageY
+                let touches = e.touches;
+                if(touches.length > 1){
+                    this.firstScaleEndPoint = {
+                        x: touches[0].pageX,
+                        y: touches[0].pageY
+                    }
+                    this.lastScaleEndPoint = {
+                        x: touches[touches.length - 1].pageX,
+                        y: touches[touches.length - 1].pageY
+                    }
+                    let originX = Math.abs(this.lastScaleStartPoint.x - this.lastScaleEndPoint.x) / 2 / this.originImgBoxWidth;
+                    let originY = Math.abs(this.lastScaleStartPoint.y - this.lastScaleEndPoint.y) / 2 / this.originImgBoxHeight;
+                    console.log(`缩放原点：${originX} ${originY}`);
+
+                    let scaleX = 1 + ((this.firstScaleEndPoint.x - this.firstScaleStartPoint.x)
+                        + (this.lastScaleEndPoint.x - this.lastScaleStartPoint.x))
+                        / this.originImgBoxWidth;
+                    let scaleY = 1 + ((this.firstScaleEndPoint.y - this.firstScaleStartPoint.y)
+                        + (this.lastScaleEndPoint.y - this.lastScaleStartPoint.y))
+                        / this.originImgBoxWidth;
+                    console.log(`缩放：${scaleX} ${scaleY}`);
+
+
+                    this.originImgBox.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${scaleX}, ${scaleY})`;
+                    this.originImgBox.style.transformOrigin = `${originX} ${originY}`;
+
+
+                    this.scaleX = scaleX.toFixed(2);
+                    this.scaleY = scaleY.toFixed(2);
+                    this.originX = originX.toFixed(2);
+                    this.originY = originY.toFixed(2);
+                }else{
+                    let end = {
+                        x: touches[0].pageX,
+                        y: touches[0].pageY
+                    }
+                    this.translateX = this.lastX + end.x - this.start.x;
+                    this.translateY = this.lastY + end.y - this.start.y;
+                    console.log(this.translateX);
+                    console.log(this.translateY);
+                    this.originImgBox.style.transform = `translate(${this.translateX}px, ${this.translateY}px)`
                 }
-                this.translateX = this.lastX + this.end.x - this.start.x;
-                this.translateY = this.lastY + this.end.y - this.start.y;
-                console.log(this.translateX);
-                console.log(this.translateY);
-                this.originImgBox.style.transform = `translate(${this.translateX}px, ${this.translateY}px)`
+
             },
             touchend(e) {
                 e.preventDefault();
@@ -204,38 +268,28 @@
             getClipPoint(){
                 let originImgBoxTop = this.originImgBox.getBoundingClientRect().top;
                 let originImgBoxLeft = this.originImgBox.getBoundingClientRect().left;
-                let originImgBoxRight = this.originImgBox.getBoundingClientRect().right;
-                let originImgBoxBottom = this.originImgBox.getBoundingClientRect().bottom;
 
                 let showImgBoxTop = this.show.getBoundingClientRect().top;
                 let showImgBoxLeft = this.show.getBoundingClientRect().left;
-                let showImgBoxRight = this.show.getBoundingClientRect().right;
-                let showImgBoxBottom = this.show.getBoundingClientRect().bottom;
 
-                if(this.originImg.naturalWidth >= this.originImg.naturalHeight) { //宽大于高
                     this.clipStart = {
                         x: +(showImgBoxLeft - originImgBoxLeft).toFixed(0),
                         y: +(showImgBoxTop - originImgBoxTop).toFixed(0),
                     }
-                }{
-                    this.clipStart = {
-                        x: +(showImgBoxLeft - originImgBoxLeft).toFixed(0),
-                        y: +(showImgBoxTop - originImgBoxTop).toFixed(0),
-                    }
-                }
+
                 console.log(`裁剪起点：${this.clipStart.x}, ${this.clipStart.y}`);
             },
             clip(){
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
                 if(this.originImg.naturalWidth >= this.originImg.naturalHeight) { //宽大于高
-                    let ratio = this.originImg.naturalHeight / show.clientHeight;
+                    let ratio = this.originImg.naturalHeight / this.show.clientHeight;
                     console.log('比率：' + ratio);
-                    this.ctx.drawImage(this.originImg, this.clipStart.x * ratio, this.clipStart.y * ratio, this.originImgBox.clientHeight * ratio, this.originImgBox.clientHeight * ratio, 0, 0, this.canvas.width, this.canvas.height);
+                    this.ctx.drawImage(this.originImg, this.clipStart.x * ratio, this.clipStart.y * ratio, this.originImgBoxHeight * ratio, this.originImgBoxHeight * ratio, 0, 0, this.canvas.width, this.canvas.height);
                 }else {
-                    let ratio = this.originImg.naturalWidth / show.clientWidth;
+                    let ratio = this.originImg.naturalWidth / this.show.clientWidth;
                     console.log('比率：' + ratio);
-                    this.ctx.drawImage(this.originImg, this.clipStart.x * ratio, this.clipStart.y * ratio, this.originImgBox.clientWidth * ratio, this.originImgBox.clientWidth * ratio, 0, 0, this.canvas.width, this.canvas.height);
+                    this.ctx.drawImage(this.originImg, this.clipStart.x * ratio, this.clipStart.y * ratio, this.originImgBoxWidth * ratio, this.originImgBoxWidth * ratio, 0, 0, this.canvas.width, this.canvas.height);
                 }
             },
             getPixel(context){

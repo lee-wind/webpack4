@@ -18,7 +18,7 @@ import './components'
 import plugin from './plugins'
 Vue.use(plugin);
 
-if(NODE_ENV === 'test'){
+if(NODE_ENV !== 'production'){
     import('vconsole').then(({ default: Vconsole }) => {
         new Vconsole();
     })
