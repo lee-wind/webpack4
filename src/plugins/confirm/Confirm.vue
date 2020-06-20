@@ -1,15 +1,15 @@
 <template>
-    <wind-modal class="wind-confirm" ref="confirmModal">
+    <wind-modal id="wind-confirm" ref="confirmModal">
         <div class="header mg">
             <p>{{title}}</p>
         </div>
         <div class="body mg scroll">
             {{message}}
         </div>
-        <div class="footer bd-top lg">
-            <button class="pd letter-spacing" @click="hide">{{buttonText[0]}}</button>
+        <div class="footer bd-top">
+            <button class="pd" @click="hide">{{buttonText[0]}}</button>
             <wind-divider/>
-            <button class="pd letter-spacing" @click="hide">{{buttonText[1]}}</button>
+            <button class="pd" @click="hide">{{buttonText[1]}}</button>
         </div>
     </wind-modal>
 </template>
@@ -42,7 +42,7 @@
             hide(){
                 if(this.reject) this.reject();
                 if(this.$refs.confirmModal){
-                    this.$refs.confirmModal.hide('.wind-confirm');
+                    this.$refs.confirmModal.hide('#wind-confirm');
                 }
             }
         }

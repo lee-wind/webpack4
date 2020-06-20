@@ -8,6 +8,7 @@ import homepage from "./homepage"
 import magnetism from "./magnetism";
 import ecology from "./ecology";
 import me from "./me";
+import {getAccessToken} from "../util";
 
 Vue.use(Router);
 
@@ -32,15 +33,20 @@ router.beforeEach((to, from , next) => {
     bus.$alertHide();
     bus.$confirmHide();
     bus.$loadingHide();
+    bus.$confirmPayHide();
 
     document.title = to.meta.title;
 
-    /*if(to.meta.auth){
-        if(!localStorage.getItem('userPhone')){
+    /*if(!to.meta.auth){
+        if(!localStorage.getItem('userName')){
+            getAccessToken(next);
+        }else{
             return next({
                 name: 'login'
             });
         }
+    }else{
+        next();
     }*/
     next();
 });

@@ -1,377 +1,504 @@
 @import "mixin";
 
 $fontSize: .28rem;
-$color: #000000;
+$color: rgba(255, 255, 255, .8);
 body{
-  font-size: $fontSize;
-  color: $color;
+    font-size: $fontSize;
+    color: $color;
 }
 .sm{
-  font-size: $fontSize - .04;
+    font-size: $fontSize - .04;
 }
 .md{
-  font-size: $fontSize;
+    font-size: $fontSize;
 }
 .lg{
-  font-size: $fontSize + .04;
+    font-size: $fontSize + .04;
 }
 .xlg{
-  font-size: $fontSize + .08;
+    font-size: $fontSize + .08;
 }
 .xxlg{
-  font-size: $fontSize + .12;
+    font-size: $fontSize + .12;
 }
 .xxxlg{
-  font-size: $fontSize + .2;
+    font-size: $fontSize + .2;
 }
 
 $margin: .3rem;
 .mg{
-  margin: $margin;
+    margin: $margin;
 }
 .mg-left{
-  margin-left: $margin;
+    margin-left: $margin;
 }
 .mg-right{
-  margin-right: $margin;
+    margin-right: $margin;
 }
 .mg-top{
-  margin-top: $margin;
+    margin-top: $margin;
 }
 .mg-bottom{
-  margin-bottom: $margin;
+    margin-bottom: $margin;
 }
 .mg-vertical{
-  margin: $margin 0;
+    margin: $margin 0;
 }
 .mg-horizontal{
-  margin: 0 $margin;
+    margin: 0 $margin;
 }
 $marginMd: .2rem;
 .mg-md{
-  margin: $marginMd;
+    margin: $marginMd;
 }
 .mg-left-md{
-  margin-left: $marginMd;
+    margin-left: $marginMd;
 }
 .mg-right-md{
-  margin-right: $marginMd;
+    margin-right: $marginMd;
 }
 .mg-top-md{
-  margin-top: $marginMd;
+    margin-top: $marginMd;
 }
 .mg-bottom-md{
-  margin-bottom: $marginMd;
+    margin-bottom: $marginMd;
 }
 .mg-vertical-md{
-  margin: $marginMd 0;
+    margin: $marginMd 0;
 }
 .mg-horizontal-md{
-  margin: 0 $marginMd;
+    margin: 0 $marginMd;
 }
 $marginSm: .1rem;
 .mg-sm{
-  margin: $marginSm;
+    margin: $marginSm;
 }
 .mg-left-sm{
-  margin-left: $marginSm;
+    margin-left: $marginSm;
 }
 .mg-right-sm{
-  margin-right: $marginSm;
+    margin-right: $marginSm;
 }
 .mg-top-sm{
-  margin-top: $marginSm;
+    margin-top: $marginSm;
 }
 .mg-bottom-sm{
-  margin-bottom: $marginSm;
+    margin-bottom: $marginSm;
 }
 .mg-vertical-sm{
-  margin: $marginSm 0;
+    margin: $marginSm 0;
 }
 .mg-horizontal-sm{
-  margin: 0 $marginSm;
+    margin: 0 $marginSm;
 }
 
 $padding: .3rem;
 .pd{
-  padding: $padding;
+    padding: $padding;
 }
 .pd-left{
-  padding-left: $padding;
+    padding-left: $padding;
 }
 .pd-right{
-  padding-right: $padding;
+    padding-right: $padding;
 }
 .pd-top{
-  padding-top: $padding;
+    padding-top: $padding;
 }
 .pd-bottom{
-  padding-bottom: $padding;
+    padding-bottom: $padding;
 }
 .pd-vertical{
-  padding: $padding 0;
+    padding: $padding 0;
 }
 .pd-horizontal{
-  padding: 0 $padding;
+    padding: 0 $padding;
 }
 $paddingMd: .2rem;
 .pd-md{
-  padding: $paddingMd;
+    padding: $paddingMd;
 }
 .pd-left-md{
-  padding-left: $paddingMd;
+    padding-left: $paddingMd;
 }
 .pd-right-md{
-  padding-right: $paddingMd;
+    padding-right: $paddingMd;
 }
 .pd-top-md{
-  padding-top: $paddingMd;
+    padding-top: $paddingMd;
 }
 .pd-bottom-md{
-  padding-bottom: $paddingMd;
+    padding-bottom: $paddingMd;
 }
 .pd-vertical-md{
-  padding: $paddingMd 0;
+    padding: $paddingMd 0;
 }
 .pd-horizontal-md{
-  padding: 0 $paddingMd;
+    padding: 0 $paddingMd;
 }
 $paddingSm: .1rem;
 .pd-sm{
-  padding: $paddingSm;
+    padding: $paddingSm;
 }
 .pd-left-sm{
-  padding-left: $paddingSm;
+    padding-left: $paddingSm;
 }
 .pd-right-sm{
-  padding-right: $paddingSm;
+    padding-right: $paddingSm;
 }
 .pd-top-sm{
-  padding-top: $paddingSm;
+    padding-top: $paddingSm;
 }
 .pd-bottom-sm{
-  padding-bottom: $paddingSm;
+    padding-bottom: $paddingSm;
 }
 .pd-vertical-sm{
-  padding: $paddingSm 0;
+    padding: $paddingSm 0;
 }
 .pd-horizontal-sm{
-  padding: 0 $paddingSm;
+    padding: 0 $paddingMd;
+}
+$paddingLg: .4rem;
+.pd-lg{
+    padding: $paddingLg;
+}
+.pd-left-lg{
+    padding-left: $paddingLg;
+}
+.pd-right-lg{
+    padding-right: $paddingLg;
+}
+.pd-top-lg{
+    padding-top: $paddingLg;
+}
+.pd-bottom-lg{
+    padding-bottom: $paddingLg;
+}
+.pd-vertical-lg{
+    padding: $paddingLg 0;
+}
+.pd-horizontal-lg{
+    padding: 0 $paddingLg;
 }
 
-$border: 1px solid #E6E6E6;
+$border: 1px solid #573B7F;
 .bd{
-  border: $border;
+    border: $border;
 }
 .bd-left{
-  border-left: $border;
+    border-left: $border;
 }
 .bd-right{
-  border-right: $border;
+    border-right: $border;
 }
 .bd-top{
-  border-top: $border;
+    border-top: $border;
 }
 .bd-bottom{
-  border-bottom: $border;
+    border-bottom: $border;
 }
-$borderActive: 1px solid #3092FC;
+$borderActive: 1px solid rgba(255, 255, 255, .8);
 .bd-active{
-  border: $borderActive;
+    border: $borderActive;
 }
 .bd-left-active{
-  border-left: $borderActive;
+    border-left: $borderActive;
 }
 .bd-right-active{
-  border-right: $borderActive;
+    border-right: $borderActive;
 }
 .bd-top-active{
-  border-top: $borderActive;
+    border-top: $borderActive;
 }
 .bd-bottom-active{
-  border-bottom: $borderActive;
+    border-bottom: $borderActive;
 }
 
 .letter-spacing{
-  letter-spacing: .1rem;
+    letter-spacing: .1rem;
 }
 
 .radius{
-  border-radius: .12rem;
+    border-radius: .12rem;
 }
 
 .auto{
-  overflow: auto;
+    overflow: auto;
 }
 .scroll{
-  overflow: scroll;
+    overflow: scroll;
 }
 .hidden{
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .block{
-  display: block;
-  width: 100%;
+    display: block;
+    width: 100%;
 }
 .inline-block{
-  display: inline-block;
+    display: inline-block;
 }
 
 .flex{
-  @include flex;
+    @include flex;
 }
 .flex1{
-  flex: 1;
+    flex: 1;
 }
 .flex-center{
-  @include flex;
-  justify-content: center;
-  align-items: center;
+    @include flex;
+    justify-content: center;
+    align-items: center;
 }
 .flex-middle{
-  @include flex;
-  align-items: center;
+    @include flex;
+    align-items: center;
 }
 .space-between{
-  @include flex;
-  justify-content: space-between;
+    @include flex;
+    justify-content: space-between;
+}
+.space-between-center{
+    @include flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .space-evenly{
-  @include flex;
-  justify-content: space-evenly;
+    @include flex;
+    justify-content: space-evenly;
 }
 .space-around{
-  @include flex;
-  justify-content: space-around;
+    @include flex;
+    justify-content: space-around;
 }
 .fixed{
-  position: fixed;
-  width: 100%;
-  height: 100%;
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
 .relative{
-  position: relative;
+    position: relative;
 }
 .absolute{
-  position: absolute;
-  width: 100%;
+    position: absolute;
+    width: 100%;
 }
 .absolute-left{
-  position: absolute;
-  left: 0;
+    position: absolute;
+    left: 0;
 }
 .absolute-center{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .absolute-right{
-  position: absolute;
-  right: 0;
+    position: absolute;
+    right: 0;
 }
 
 .text-left{
-  text-align: left;
+    text-align: left;
 }
 .text-center{
-  text-align: center;
+    text-align: center;
 }
 .text-right{
-  text-align: right;
+    text-align: right;
 }
 
 .normal{
-  font-weight: normal;
+    font-weight: normal;
 }
 .bold{
-  font-weight: bold;
+    font-weight: bold;
 }
 .bolder{
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .mg-auto{
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
 .input{
-  input{
-    width: 100%;
-  }
+    flex: 1;
+    input{
+        width: 100%;
+    }
 }
 .circle{
-  border-radius: 50%;
+    border-radius: 50%;
+}
+
+.mg-left-auto{
+    margin-left: auto;
+}
+
+.wind-icon{
+    /*display: block;*/
+    width: auto;
+    height: .4rem;
+}
+
+.text-ellipse{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 $color: #000000;
 .main-color{
-  color: $color;
+    color: $color;
+}
+.body-bg{
+    background-color: #1D1B3B;
 }
 .main-bg{
-  background-color: $color;
-}
-.light-color{
-  color: #999999;
-}
-.light-bg{
-  background-color: #F5F5F5;
+    background-color: $color;
 }
 .theme-color{
-  color: #3092FC;
+    color: #B384F6;
 }
 .theme-bg{
-  color: #ffffff;
-  background-color: #3092FC;
-  //background-image: linear-gradient(to bottom, #A06FFF, #6822F2);
+    color: #ffffff;
+    background-color: #B384F6;
+    //background-image: linear-gradient(to bottom, #A06FFF, #6822F2);
+}
+.light-color{
+    color: rgba(255, 255, 255, 0.8);
+}
+.light-bg{
+    background-color: #F5F5F5;
 }
 .white-color{
-  color: #ffffff;
+    color: #ffffff;
 }
 .white-bg{
-  background-color: #ffffff;
+    background-color: #ffffff;
 }
-.red-color{
-  color: #FF5756;
+.purple-color{
+    color: #392357;
 }
-.red-bg{
-  color: #ffffff;
-  background-color: #FF5756;
+.purple-bg{
+    background-color: #392357;
 }
 .red-bg-light{
-  background-color: #FEEDED;
+    background-color: #FEEDED;
 }
 .green-color{
-  color: #07C087;
+    color: #07C087;
 }
 .green-bg{
-  color: #ffffff;
-  background-color: #07C087;
+    color: #ffffff;
+    background-color: #07C087;
 }
 .green-bg-light{
-  background-color: #D2FFF2;
+    background-color: #D2FFF2;
 }
 .orange-color{
-  color: #F27B47;
+    color: #F27B47;
 }
 .orange-bg{
-  background-color: #F27B47;
+    background-color: #F27B47;
 }
 
-.mg-left-auto{
-  margin-left: auto;
+.input{
+    input, textarea{
+        width: 100%;
+    }
 }
 
-.wind-icon{
-  /*display: block;*/
-  width: auto;
-  height: .35rem;
+.polygon-btn{
+    @include flex;
+    justify-content: center;
+    align-items: center;
+    //font-size: 0.32rem;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    //height: 1rem;
+    background-color: inherit;
+    background-image: linear-gradient(to right, #9D6CFE, #6B26F3);
+    &.pd-sm, &.pd-md, &.pd{
+        height: initial;
+    }
+    &::before, &::after{
+        display: block;
+        content: '';
+        position: absolute;
+        z-index: 10;
+        width: .3rem;
+        height: .3rem;
+        background-color: inherit;
+    }
+    &::before{
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+    &::after{
+        bottom: 0;
+        right: 0;
+        transform: translate(50%, 50%) rotate(45deg);
+    }
 }
 
-.text-ellipse{
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+.polygon-btn-red{
+    @include flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.32rem;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 1rem;
+    background-color: initial;
+    background-image: url('../img/polygon_btn_red.png');
+    background-size: 100% 100%;
+    height: 1rem;
+}
+
+.card{
+    background: url('../../assets/img/card_bg.png');
+    background-size: 100% 100%;
+}
+.card-lg{
+    padding: $paddingLg 0;
+    background: url('../../assets/img/card_lg_bg.png');
+    background-size: 100% 100%;
+}
+
+.flex-1{
+    flex: 1;
+}
+.flex-2{
+    flex: 2;
+}
+.flex-3{
+    flex: 3;
+}
+.flex-4{
+    flex: 4;
+}
+.flex-5{
+    flex: 5;
+}
+.flex-6{
+    flex: 6;
+}
+.flex-7{
+    flex: 7;
+}
+.flex-8{
+    flex: 8;
+}
+.flex-9{
+    flex: 9;
+}
+.flex-10{
+    flex: 10;
 }
 

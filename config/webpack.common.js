@@ -1,19 +1,21 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
 
 const util = require('./util');
 
-let env = process.env;
-console.log(`env: ${env}`);
+let NODE_ENV = process.env.NODE_ENV;
+console.log(`env: ${NODE_ENV}`);
 
-let dist = util.getDist(env.NODE_ENV);
+let dist = util.getDist(NODE_ENV);
 console.log(`dist: ${dist}`);
 
-let isDev = env.NODE_ENV === 'development';
+let isDev = NODE_ENV === 'development';
 console.log(`isDevelopment: ${isDev}`);
 
 module.exports = {
@@ -71,6 +73,7 @@ module.exports = {
                 test: /\.(png|svg|jpe?g|gif)$/,
                 loader: 'url-loader',
                 options: {
+                    esModule: false,
                     limit: 8192,
                     name: isDev ? '[name].[ext]' : '[contenthash].[ext]',
                     outputPath: 'img',
@@ -80,6 +83,7 @@ module.exports = {
                 test: /\.(woff|woff2|eof|ttf|otf)$/,
                 loader: 'url-loader',
                 options: {
+                    esModule: false,
                     limit: 8192,
                     name: isDev ? '[name].[ext]' : '[contenthash].[ext]',
                     outputPath: 'font',
@@ -88,14 +92,24 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(),
+        new CleanWebpackPlugin([ dist ], {
+            root: path.resolve(__dirname, '../'),
+            exclude: []
+        }),
+        new CopyPlugin({
+           patterns: [{
+               from: 'favicon.ico',
+               to: path.resolve(__dirname, '../' + dist),
+           }]
+        }),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash].css',
             chunkFilename: 'css/[id].[contenthash].css',
             ignoreOrder: false,
         }),
         new HtmlWebpackPlugin({
-            template: 'index.html'
+            template: 'index.html',
+           /* favicon: path.resolve('favicon.ico')*/
         }),
         new ManifestPlugin(),
         new VueLoaderPlugin(),

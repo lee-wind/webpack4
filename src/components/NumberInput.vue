@@ -1,12 +1,13 @@
 <template>
     <input class="wind-number-input" type="text" :value="number"
-           @input="changeValue($event)" :placeholder="placeholder"
-           @keyup="keyup" @focus="focus" @blur="blur">
+           :placeholder="placeholder" :maxlength="maxLength"
+           @input="changeValue($event)" @keyup="keyup"
+           @focus="focus" @blur="blur">
 </template>
 
 <script>
     export default {
-        name: "NUmberInput",
+        name: "NumberInput",
         model: {
             prop: 'number',
             event: 'keydown'
@@ -18,6 +19,9 @@
             number: '',
             length: {
                 default: 2,
+            },
+            maxLength: {
+                default: 10,
             }
         },
         methods: {
@@ -27,7 +31,7 @@
                 val = val.toString();
                 val = (val.replace(/[^0-9.]/g,'').match(reg)||[''])[0].replace(/^0\d/,val.substr(1));
                 e.target.value = val;
-                this.$emit('keydown', val);
+                this.$emit('keydown', Number(val));
             },
             keyup(){
                 this.$emit('keyup');

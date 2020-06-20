@@ -1,3 +1,5 @@
+import i18n from "./locale";
+
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
@@ -16,10 +18,17 @@ import './components'
 import plugin from './plugins'
 Vue.use(plugin);
 
+if(NODE_ENV === 'test'){
+    import('vconsole').then(({ default: Vconsole }) => {
+        new Vconsole();
+    })
+}
+
 import App from './App'
 
 new Vue({
     el: '#app',
+    i18n,
     store,
     router,
     components: { App },

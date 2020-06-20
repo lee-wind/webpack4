@@ -13,8 +13,7 @@ import NumberInput from "./NumberInput";
 import Close from "./Close";
 import Copy from "./Copy";
 import NumberMore from "./NumberMore";
-import TabList from "./TabList";
-import TabItem from "./TabItem";
+import Tab from "./Tab";
 import Select from './Select'
 import All from "./All";
 import CountDown from "./CountDown";
@@ -26,6 +25,7 @@ import Search from './Search'
 import Submit from "./Submit";
 import Eye from "./Eye";
 import Barcode from './Barcode'
+import Polygon from "./Polygon";
 
 import AlipayIcon from "./AlipayIcon";
 import BankIcon from "./BankIcon";
@@ -44,8 +44,7 @@ Vue.component('wind-number-input', NumberInput);
 Vue.component('wind-close', Close);
 Vue.component('wind-copy', Copy);
 Vue.component('wind-number-more', NumberMore);
-Vue.component('wind-tab-list', TabList);
-Vue.component('wind-tab-item', TabItem);
+Vue.component('wind-tab', Tab);
 Vue.component('wind-select', Select);
 Vue.component('wind-all', All);
 Vue.component('wind-count-down', CountDown);
@@ -60,3 +59,4 @@ Vue.component('wind-barcode', Barcode);
 Vue.component('wind-alipay-icon', AlipayIcon);
 Vue.component('wind-bank-icon', BankIcon);
 Vue.component('wind-level_icon', LevelIcon);
+Vue.component('wind-polygon', Polygon);

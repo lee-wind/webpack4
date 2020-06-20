@@ -1,5 +1,5 @@
 <template>
-    <input class="wind-int-input" type="number" :value="number"
+    <input class="wind-int-input" type="text" :maxlength="maxLength" :value="number"
            @input="changeValue($event)" :placeholder="placeholder">
 </template>
 
@@ -15,9 +15,9 @@
                 default: ''
             },
             number: 0,
-            length: {
+            maxLength: {
                 default: 8,
-            }
+            },
         },
         methods: {
             changeValue(e){
@@ -26,7 +26,7 @@
                     value = value.replace(/^0|\D/g,'').substring(0, this.length);
                 }
                 e.target.value = value;
-                this.$emit('keydown', value);
+                this.$emit('keydown', Number(value));
             }
         }
     }

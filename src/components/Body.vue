@@ -13,6 +13,6 @@
 <style scoped lang="scss">
     .wind-body{
         height: calc(100% - 1rem);
-        background-color: #F5F5F5;
+        background-color: #1D1B3B;
     }
 </style>

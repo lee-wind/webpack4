@@ -23,7 +23,7 @@
 <style lang="scss">
     #ecology{
         .wind-body{
-            height: calc(100% - 2rem);
+            height: calc(100% - 2.4rem);
         }
     }
 </style>

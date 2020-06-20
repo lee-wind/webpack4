@@ -1,5 +1,6 @@
 <template>
-    <input class="wind-decimal-input" type="text" :value="number" @input="changeValue($event)" :placeholder="placeholder">
+    <input class="wind-decimal-input" type="text" :value="number" :maxlength="maxLength"
+           :placeholder="placeholder" @input="changeValue($event)">
 </template>
 
 <script>
@@ -14,9 +15,12 @@
                 default: ''
             },
             number: '',
+            maxLength: {
+                default: 10 //包含小数点
+            },
             length: {
                 default: 2
-            },
+            }
         },
         computed: {
             reg(){
@@ -30,7 +34,7 @@
                     value = (value.match(this.reg)||[''])[0];
                 }
                 e.target.value = value;
-                this.$emit('change', value);
+                this.$emit('change', Number(value));
             }
         }
     }

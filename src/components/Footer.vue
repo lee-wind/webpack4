@@ -1,5 +1,5 @@
 <template>
-    <div class="wind-footer flex-center">
+    <div class="wind-footer flex-middle">
         <slot></slot>
     </div>
 </template>
@@ -13,9 +13,21 @@
 <style scoped lang="scss">
 .wind-footer{
     position: relative;
-    display: flex;
-    height: 1rem;
-    box-shadow: 0 -.06rem .4rem 0 rgba(0, 0, 0, 0.15);
-    z-index: 111;
+    height: 1.4rem;
+    padding-top: .08rem;
+    background-image: url('../assets/img/components/footer/footer_bg.png');
+    background-size: 100% 100%;
+    .polygon-btn{
+        background-color: initial;
+        background-image: url("../assets/img/polygon_btn.png");
+        background-size: 100% 100%;
+        height: 1rem;
+    }
+    .polygon-btn-sm{
+        background-color: initial;
+        background-image: url("../assets/img/polygon_sm_btn.png");
+        background-size: 100% 100%;
+        height: 1rem;
+    }
 }
 </style>

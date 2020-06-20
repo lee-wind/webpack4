@@ -12,7 +12,7 @@
 <script>
     import { mapState, mapActions } from 'vuex'
     export default {
-        name: "TabList",
+        name: "Tab",
         model: {
             prop: 'component',
             event: 'change',
@@ -66,9 +66,5 @@
 </script>
 
 <style scoped lang="scss">
-.wind-tab-list{
-    li{
-       /* flex: 1;*/
-    }
-}
+
 </style>

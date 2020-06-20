@@ -66,7 +66,7 @@
             }
         },
         created(){
-            if(this.isAutoRefresh == true){
+            if(this.isAutoRefresh === true){
                 this.toRefreshLoad();
             }
         },
@@ -85,9 +85,11 @@
                 new Promise(resolve => {
                     this.$emit('loadMore', current, resolve)
                 }).then(() => {
+                    console.log(this.length);
+                    console.log(this.total);
                     this.refreshDone = true;
                     this.isLoading = false;
-                    if(this.length == this.total){
+                    if(this.length === this.total){
                         console.log('全部數據加載完');
                         this.noMoreData = true;
                     }
@@ -171,7 +173,6 @@
             },
             resetTransition(){
                 this.paginationEl.style.overflow = 'scroll';
-                console.log(222);
                 this.isRefreshing = false;
                 this.refreshEl.style.transition = '';
                 this.refreshEl.removeEventListener('transitionend', this.resetTransition);
@@ -231,7 +232,6 @@
             left: 50%;
             margin-left: -.4rem;
             overflow: hidden;
-            //animation: rotate 1s infinite linear;
             img{
                 display: block;
                 width: .8rem;

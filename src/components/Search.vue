@@ -1,5 +1,5 @@
 <template>
-    <form class="wind-search sm flex-middle bd radius light-bg" action="" onsubmit="return false">
+    <form class="wind-search flex-middle bd radius" action="" onsubmit="return false">
         <input ref="search" type="search" v-model="text" placeholder="搜索" @search="search">
         <img src="../assets/img/components/search/search_icon.png" alt="" @click="search">
     </form>
@@ -24,7 +24,10 @@
 
 <style scoped lang="scss">
     .wind-search{
-        padding: .1rem .2rem;
+        /*padding: .1rem .2rem;*/
+        input{
+            flex: 1;
+        }
         input[type="search"]::-webkit-search-cancel-button{
             -webkit-appearance: none;
         }

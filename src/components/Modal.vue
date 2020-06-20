@@ -4,7 +4,7 @@
             <div class="mask absolute" v-show="modalContentShow" @click.stop="clickMask"></div>
         </transition>
         <transition name="slide" v-on:after-leave="leave">
-            <div class="container white-bg radius" v-show="modalContentShow">
+            <div class="container" v-show="modalContentShow">
                 <slot></slot>
             </div>
         </transition>
@@ -57,16 +57,19 @@
     left: 0;
     width: 100%;
     height: 100%;
+
+    z-index: 111;
+    background-color: initial;
     .mask{
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, .3);
     }
     .fade-enter-active, .slide-enter-active {
-        transition: all .2s linear;
+        transition: all .15s linear;
     }
     .fade-leave-active, .slide-leave-active {
-        transition: all .2s linear;
+        transition: all .15s linear;
     }
     .fade-enter, .fade-leave-to{
         opacity: 0;
@@ -76,6 +79,10 @@
         width: 90%;
         left: 50%;
         top: 50%;
+
+        background-image: url("../assets/img/components/modal/modal_bg.png");
+        background-size: 100% 100%;
+
         transform: translate(-50%, -50%);
         .body{
             min-height: 1rem;
@@ -89,6 +96,11 @@
                 text-align: center;
             }
         }
+
+        .polygon-btn{
+            background-image: url('../assets/img/polygon_btn.png');
+            background-size: 100% 100%;
+        }
     }
     &.raw{
         .container{
@@ -96,6 +108,7 @@
             top: initial;
             left: initial;
             transform: initial;
+            background-image: initial;
             background-color: transparent;
         }
     }

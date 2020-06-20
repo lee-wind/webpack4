@@ -1,6 +1,6 @@
 <template>
     <wind-modal class="wind-toast raw" ref="toastModal">
-        <p class="pd-md white-color lg">{{message}}</p>
+        <p class="pd white-color lg">{{message}}</p>
     </wind-modal>
 </template>
 

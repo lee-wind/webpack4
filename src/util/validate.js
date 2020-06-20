@@ -51,6 +51,13 @@ export const bankNumberReg = {
     text: '银行卡号码长度为16至24位',
 };
 
+// 邮箱校验
+export const emailReg = {
+    reg: /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/,
+    text: '邮箱格式错误'
+}
+
+
 //区域码校验
 export const phoneMatchCountryCode = (phone, areaCode) => {
     switch (areaCode) {

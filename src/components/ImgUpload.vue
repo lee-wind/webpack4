@@ -42,6 +42,7 @@
                 imgSrc: '',
                 base64: '',
                 optionShow: false,
+                count: 0,
             }
         },
         methods: {
@@ -140,22 +141,23 @@
                     })
                 })
             },
-            getBase64(){
-                let canvas = this.$refs.canvas;
-                //let dpr = window.devicePixelRatio || 1;
-                //console.log(dpr);
-                let img = this.$refs.img;
-                let ctx = canvas.getContext('2d');
-                img.onload = () => {
-                    console.log(img.naturalWidth);
-                    console.log(img.naturalHeight);
-                    canvas.width = img.naturalWidth;
-                    canvas.height = img.naturalHeight;
-                }
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                return canvas.toDataURL('image/' + this.suffix, 1);
-            },
             toBase64(size){
+                // 1:
+                // 原理：x(像素) * y(像素) = 总像素
+                // 原尺寸 / 现尺寸 = 原总像素 / 现总像素
+                // 现总像素 = y * (x/y) * y = 原总像素 / (原尺寸 / 现尺寸)
+                // y = Math.sqrt(现总像素 / (x/y));
+                // x = y * (x/y);
+
+                // 2:
+                // 原理：x(像素) * y(像素) = 总像素
+                // 每尺寸N个像素 = 总像素 / 总尺寸
+                // 现总像素 = 现尺寸 * 每尺寸N个像素
+                // y * （x/y) y = 现总像素
+                // y = Math.sqrt(现总像素 / (x/y));
+                // x = y * (x/y);
+                this.count++;
+
                 console.log("压缩前：" + size);
                 let canvas = this.$refs.canvas;
                 //let dpr = window.devicePixelRatio || 1;
@@ -164,20 +166,43 @@
                 //console.log(img);
                 let ctx = canvas.getContext('2d');
                 img.onload = () => {
-                    console.log(img.naturalWidth);
-                    console.log(img.naturalHeight);
+
                     let width = img.naturalWidth;
                     let height = img.naturalHeight;
-                    let ratio = width / height;
-                    let pixelPerSize = width * height / size;
-                    console.log(pixelPerSize);
-                    let shrinkHeight = Math.sqrt(this.maxSize * pixelPerSize / ratio);
-                    let shrinkWidth = shrinkHeight * ratio;
 
-                    canvas.width = shrinkWidth;
-                    canvas.height = shrinkHeight;
-                    console.log(canvas.width);
-                    console.log(canvas.height);
+                    console.log('原宽：' + width);
+                    console.log('原高：' + height);
+
+                    let originPixel = width * height;
+                    console.log('原总像素：' + originPixel);
+
+                    let ratio = width / height;
+                    console.log('宽等于：' + ratio + '高'); //height * height * ratio = pixel;
+
+                    //方法一
+                    let sizeRatio = size / this.maxSize;
+                    console.log('尺寸比：' + sizeRatio);
+                    let currentPixel = originPixel / sizeRatio;
+                    console.log('现总像素：' + currentPixel);
+                    let currentHeight = Math.sqrt(currentPixel / ratio);
+                    let currentWidth = currentHeight * ratio;
+                    console.log('当前高：' + currentHeight);
+                    console.log('当前宽' + currentWidth);
+
+                    //方法二
+                    /*let pixelPerSize = width * height / size;
+                    console.log('每尺寸：' + pixelPerSize + '个像素');
+                    let currentPixel = this.maxSize * pixelPerSize;
+                    console.log('现总像素：' + currentPixel);
+                    let currentHeight = Math.sqrt(currentPixel / ratio);
+                    let currentWidth = currentHeight * ratio;
+                    console.log('当前高：' + currentHeight);
+                    console.log('当前宽' + currentWidth);*/
+
+                    canvas.width = currentWidth;
+                    canvas.height = currentHeight;
+                    //console.log(canvas.width);
+                    //console.log(canvas.height);
 
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                     let imgSrc = canvas.toDataURL('image/' + this.suffix, 1);
@@ -193,6 +218,7 @@
                         this.$emit('callback');
                         this.imgSrc = '';
                         this.base64 = '';
+                        console.log('循环次数：' + this.count);
                     }
                 }
             },
@@ -200,8 +226,8 @@
                 let tag="base64,";
                 let baseStr = base64.substring(base64.indexOf(tag) + tag.length);
                 //console.log(baseStr);
-                let eqTagIndex=baseStr.indexOf("=");
-                baseStr = eqTagIndex != -1 ? baseStr.substring(0, eqTagIndex) : baseStr;
+                let eqTagIndex = baseStr.indexOf("=");
+                baseStr = eqTagIndex !== -1 ? baseStr.substring(0, eqTagIndex) : baseStr;
                 let baseStrLength = baseStr.length;
                 return baseStrLength - (baseStrLength / 8) * 2;
             }

@@ -1,5 +1,5 @@
 <template>
-    <wind-modal class="wind-loading" :mask-click-hide="false" ref="loadingModal">
+    <wind-modal class="wind-loading raw" :mask-click-hide="false" ref="loadingModal">
         <div class="body margin">
             <div class="sk-circle">
                 <div class="sk-circle1 sk-child"></div>
@@ -27,7 +27,7 @@
         name: "Loading",
         data(){
             return {
-                message: '请稍后...'
+                message: ''
             }
         },
         methods: {
@@ -47,8 +47,8 @@
 <style lang="scss">
 .wind-loading{
     .container{
-        width: 90%;
-        top: 30%;
+        /*width: 90%;*/
+        top: 30%!important;
         background-color: transparent!important;
     }
     .sk-circle {

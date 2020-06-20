@@ -1,8 +1,14 @@
+import { UPDATE_CURRENT_TAB_COMPONENT, RESET_CURRENT_TAB_COMPONENT } from "../store/mutation_types";
+
+import store from '../store'
+
 import Alert from "./alert";
 import Confirm from "./confirm";
 import Toast from './toast'
 import Loading from "./loading";
+import ConfirmPay from "./confirmPay";
 
+import VueClipboard2 from 'vue-clipboard2'
 
 import { app, setUserInfo, removeUserInfo, mixin, getLocalStorage, setLocalStorage } from "../util";
 import { onlyInt, toFixed, percentage, plus, minus, multiply, division } from "../util/number";
@@ -10,7 +16,7 @@ import { timeAgo, restTime, getYear, getMonth, getDay, getDate, getHours,
     getMinutes, getSeconds, fullTime, yearToSeconds, yearToDate, hoursToSeconds,
     yearToSecondsNextTo } from "../util/date";
 
-import { plusReady } from "../util/plus";
+// import { plusReady } from "../util/plus";
 
 export default {
     install(Vue, options){
@@ -19,6 +25,9 @@ export default {
         Vue.use(Confirm);
         Vue.use(Toast);
         Vue.use(Loading);
+        Vue.use(ConfirmPay);
+
+        Vue.use(VueClipboard2);
 
         Vue.mixin(mixin);
 
@@ -32,7 +41,16 @@ export default {
 
         Vue.prototype.$setLocalStoage = setLocalStorage;
 
-        Vue.prototype.$plusReady = plusReady
+        Vue.prototype.$updateCurrentTabComponent = component => {
+            store.commit(UPDATE_CURRENT_TAB_COMPONENT, component);
+        }
+
+        Vue.prototype.$resetCurrentTabComponent = () => {
+            store.commit(RESET_CURRENT_TAB_COMPONENT)
+        }
+
+
+        /*Vue.prototype.$plusReady = plusReady*/
 
         Vue.filter('onlyInt', onlyInt);
         Vue.filter('toFixed', toFixed);

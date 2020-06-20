@@ -144,7 +144,7 @@ export const monthToMinute = function (timestamp) {
   return `${month}-${date} ${hours}:${minutes}`;
 };
 
-//时间格式yyyy-mm-dd hh:mm:ss
+//时间格式yyyy年mm月dd日 hh时mm分ss秒
 export const fullTime = function (timestamp) {
   if(!timestamp){
     return '--';

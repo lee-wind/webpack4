@@ -10,7 +10,7 @@
 
 <style scoped>
     .wind-link-arrow{
-        width: 0.18rem;
+        width: auto;
         height: 0.3rem;
     }
 </style>

@@ -11,7 +11,7 @@
 <style scoped>
 .wind-divider{
     width: 1px;
-    height: 100%;
+    background-color:  #573B7F;
     /*background-color: #DEDEDE;*/
 }
 </style>

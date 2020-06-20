@@ -6,8 +6,8 @@
         <div class="body mg scroll">
             {{message}}
         </div>
-        <div class="footer bd-top lg">
-            <button class="pd letter-spacing" @click="hide">{{buttonText}}</button>
+        <div class="footer bd-top">
+            <button class="pd" @click="hide">{{buttonText}}</button>
         </div>
     </wind-modal>
 </template>

@@ -31,12 +31,12 @@ button
     box-sizing: border-box;
     font-size: inherit;
     color: inherit;
-    background-color: transparent;
+    background-color: inherit;
     word-break: break-word;
-    white-space: normal;
+    /*white-space: normal;*/
     text-align: inherit;
     -webkit-tap-highlight-color: transparent;
-    text-size-adjust:none;
+    text-size-adjust: none;
     font-weight: inherit;
 }
 
@@ -52,7 +52,7 @@ ol, ul{
 }
 
 img{
-    height: auto;
+    /*height: auto;*/
 }
 
 table{

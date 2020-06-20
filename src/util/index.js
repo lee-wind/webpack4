@@ -6,47 +6,52 @@ export let app = {
     userId: '',
     accessToken: '',
     refreshToken: '',
-    userPhone: localStorage.getItem('userPhone'),
+    userName: localStorage.getItem('userName'),
     phoneType: 2, //Android, IOS,
 };
 
+//初始化用户信息
 export const initUserInfo = () => {
     console.log('初始化用戶信息');
-    let user = localStorage.getItem(localStorage.getItem('userPhone'));
+    let user = localStorage.getItem(localStorage.getItem('userName'));
     if(!user) return;
     user = JSON.parse(user);
-    app.userId = localStorage.getItem("userId");
+    //app.userId = localStorage.getItem("userId");
     app.accessToken = user.accessToken;
     app.refreshToken = user.refreshToken;
     app.refreshTime = user.refreshTime;
 };
 
+//设置用户信息
 export const setUserInfo = (data) => {
     console.log("設置用戶信息");
-    app.userId = data.user_id;
+    //app.userId = data.user_id;
     app.accessToken = data.access_token;
     app.refreshToken = data.refresh_token;
     app.refreshTime = data.timestamp;
-    app.userPhone = localStorage.getItem("userPhone");
-    localStorage.setItem('userId', data.user_id);
+    app.userName = localStorage.getItem("userName");
+    //localStorage.setItem('userId', data.user_id);
     setLocalStorage('accessToken', data.access_token);
     setLocalStorage('refreshToken', data.refresh_token);
     setLocalStorage('refreshTime', data.timestamp);
 };
 
+//移除用户信息
 export const removeUserInfo = () => {
     console.log('移除用戶信息');
+    localStorage.removeItem('userName');
     localStorage.removeItem(app.userPhone);
-    localStorage.removeItem('userId');
-    app.userId = '';
+    //localStorage.removeItem('userId');
+    //app.userId = '';
     app.accessToken = '';
     app.refreshToken = '';
     app.refreshTime = '';
     app.userPhone = '';
 };
 
+//获取本地数据（与账户挂钩）
 export const getLocalStorage = (key, defaultVal = '') => {
-    let user = localStorage.getItem(app.userPhone);
+    let user = localStorage.getItem(app.userName);
     if(!user) {
         return defaultVal;
     }
@@ -57,8 +62,9 @@ export const getLocalStorage = (key, defaultVal = '') => {
     return defaultVal;
 };
 
+//设置本地数据（与账户挂钩）
 export const setLocalStorage = (key, object) => {
-    let user = localStorage.getItem(app.userPhone);
+    let user = localStorage.getItem(app.userName);
     if(!user){
         user = {};
     }else{
@@ -68,6 +74,7 @@ export const setLocalStorage = (key, object) => {
     localStorage.setItem(app.userPhone, JSON.stringify(user));
 };
 
+//A->B(有缓存tab), B->A(清除B缓存tab)
 export const mixin = {
     beforeRouteLeave(to, from, next){
         const toDepth = to.path.split('/').length;
@@ -81,6 +88,7 @@ export const mixin = {
     },
 };
 
+//刷新token
 export const getAccessToken = (callback = () => {}) => {
     let refreshToken = app.refreshToken;
     if(refreshToken){

@@ -1,18 +1,20 @@
+const os = require('os');
+
 module.exports = {
     dev: {
         dist: 'dev',
-        origin: 'development',
+        origin: 'http://47.56.107.199:9765',
     },
     test: {
         dist: 'test',
-        origin: 'test',
+        origin: 'http://47.56.107.199:9765',
     },
     build: {
         dist: 'build',
-        origin: 'build'
+        origin: 'http://app.idra.site:8009',
     },
     getDist(env){
-        let dist = 'build';
+        let dist = this.build.dist;
         switch (env) {
             case 'development':
                 dist = this.dev.dist;
@@ -23,5 +25,15 @@ module.exports = {
             default:
         }
         return dist;
+    },
+    getLocalIP(){
+        let networkInfo = os.networkInterfaces();
+        for(let key in networkInfo){
+            for(let network of networkInfo[key]){
+                if(network.family === 'IPv4' && !network.internal){
+                    return network.address;
+                }
+            }
+        }
     }
 };
