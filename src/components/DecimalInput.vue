@@ -34,7 +34,7 @@
                     value = (value.match(this.reg)||[''])[0];
                 }
                 e.target.value = value;
-                this.$emit('change', Number(value));
+                this.$emit('change', (value)); //由于科学计数法原因，不Number
             }
         }
     }

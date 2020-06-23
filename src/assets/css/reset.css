@@ -31,7 +31,7 @@ button
     box-sizing: border-box;
     font-size: inherit;
     color: inherit;
-    background-color: inherit;
+    /*background-color: inherit;*/
     word-break: break-word;
     /*white-space: normal;*/
     text-align: inherit;
@@ -103,6 +103,7 @@ pre, input, select, textarea, button, fieldset{
     outline: none;
     font-family: inherit;
     -webkit-appearance: none;
+    background-color: transparent;
 }
 
 button[disabled], input[disabled]{

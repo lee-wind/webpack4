@@ -349,6 +349,15 @@ $borderActive: 1px solid rgba(255, 255, 255, .8);
     white-space: nowrap;
 }
 
+.width-auto{
+    width: auto;
+    height: 100%;
+}
+.height-auto{
+    width: 100%;
+    height: auto;
+}
+
 $color: #000000;
 .main-color{
     color: $color;

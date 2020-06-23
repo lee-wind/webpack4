@@ -31,6 +31,7 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': path.resolve('src'),
+            'swiper$': 'swiper/js/swiper.min'
         }
     },
     module: {

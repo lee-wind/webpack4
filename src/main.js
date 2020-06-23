@@ -11,6 +11,8 @@ import router from './router';
 import './assets/css/reset.css'
 import './assets/css/common.scss'
 
+import 'swiper/css/swiper.min.css'
+
 import './assets/js/rem'
 
 import './components'

@@ -1,4 +1,3 @@
-<script src="../../../../node_modules/decimal.js/decimal.js"></script>
 <template>
     <wind-container>
         <wind-header>
@@ -6,6 +5,19 @@
         </wind-header>
         <wind-body>
             <form>
+                <div v-katex="'\\frac{a_i}{1+x}'"></div>
+                <div v-katex:display="'\\frac{a_i}{1+x}'"></div>
+                <p>{{a}}、{{b}}：</p>
+                <p>加：{{a | add(b)}}</p>
+                <p>减：{{a | sub(b)}}</p>
+                <p>乘：{{a | mul(b)}}</p>
+                <p>除：{{a | div(b)}}</p>
+                <p>{{c | digit(9)}}（9位小数）保留8位小数：{{c | digit(8)}}</p>
+                <div class="mg bd flex-middle">
+                    <button type="button" class="bd-right pd-md" @click="sub">-</button>
+                    <wind-decimal-input :length="precision" class="pd-md" v-model="price"/>
+                    <button type="button" class="bd-left pd-md" @click="add">+</button>
+                </div>
                 <div class="mg" style="width: 50%">
                     <wind-select :list="list" v-model="select" text-key="text"/>
                 </div>
@@ -19,7 +31,7 @@
                     <wind-decimal-input class="pd-md bd radius" v-model="decimalInput" placeholder="小数输入框"/>
                 </div>
                 <div class="mg input">
-                    <wind-decimal-input class="pd-md bd radius" :value="decimal" placeholder="小数输入框"/>
+                    <wind-number-input class="pd-md bd radius" :value="decimal" placeholder="小数输入框"/>
                 </div>
                 <div class="mg input">
                     <p v-html="otherChatText"></p>
@@ -39,8 +51,7 @@
 </template>
 
 <script>
-    import { Decimal } from 'decimal.js';
-    //console.log(Decimal)
+    import { Decimal } from 'decimal.js'
     export default {
         name: "Form",
         data(){
@@ -76,14 +87,21 @@
                 chatText: '',
                 otherChatText: '',
                 chatEl: '',
+
+                a: '0.003',
+                b: '0.001',
+                c: 0.000000789,
+                price: '',
+                precision: 8,
             }
         },
         mounted(){
             this.chatEl = this.$refs.chatEl;
-
+            let a = 0.000000078;
+            console.log(a.toFixed(8))
+            console.log(a.toFixed(9).slice(0, -1));
         },
         methods: {
-
             submit(){
                 console.log(new Decimal(9));
                 console.log(this.int);
@@ -99,6 +117,7 @@
             chat(e){
                 this.chatText = e.target.innerHTML;
                 console.log(this.chatText);
+
             },
             selectEmoji(emoji){
                 this.chatText += emoji;
@@ -133,6 +152,24 @@
                     }
                 });
                 return result;
+            },
+            add(){
+                let price = Math.pow(10, -this.precision);
+                if(!this.price){
+                    this.price = this.$digit(price, this.precision);
+                }else{
+                    let result = this.$add(this.price, price);
+                    this.price = this.$digit(result, this.precision);
+                }
+            },
+            sub(){
+                let price = Math.pow(10, -this.precision);
+                if(this.price){
+                    console.log(Number.parseFloat(this.price));
+                    if(Number.parseFloat(this.price) === 0) return;
+                    let result = this.$sub(this.price, price);
+                    this.price = this.$digit(result, this.precision);
+                }
             }
         }
     }
@@ -143,10 +180,8 @@
     display: flex;
     flex-wrap: wrap;
     font-size: .42rem;
-
     li{
        width: 10%;
-
     }
 }
 </style>
