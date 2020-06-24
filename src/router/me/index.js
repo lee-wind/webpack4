@@ -56,5 +56,13 @@ export default [
             title: 'avatar',
             auth: true
         }
+    },{
+        path: '/me/KLine',
+        name: 'KLine',
+        component: () => import('../../views/me/KLine/KLine'),
+        meta: {
+            title: 'KLine',
+            auth: true
+        }
     }
 ]

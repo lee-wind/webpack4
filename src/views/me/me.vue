@@ -41,9 +41,15 @@
                             <wind-link-arrow/>
                         </router-link>
                     </li>
-                    <li class="flex-middle pd" @click="toMessageCenter">
+                    <li class="flex-middle bd-bottom pd" @click="toMessageCenter">
                         <p>去消息中心</p>
                         <wind-link-arrow/>
+                    </li>
+                    <li>
+                        <router-link class="flex-middle pd" to="/me/KLine">
+                            <p>KLine</p>
+                            <wind-link-arrow/>
+                        </router-link>
                     </li>
                 </ul>
             </wind-polygon>
