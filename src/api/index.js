@@ -11,7 +11,14 @@ export const getAccess_token = ({refresh_token, grant_type}) => {
     )
 };
 
-//登录
+export const login = (loginName, password) => {
+    return axios.post('uac/auth/login', {
+        loginName,
+        password
+    })
+}
+
+/*//登录
 export const login = (areaCode, username, password) => {
     return axios.post('uac/auth/form',
         qs.stringify({
@@ -21,7 +28,7 @@ export const login = (areaCode, username, password) => {
             //loadingText: '正在登录'
         })
     );
-};
+};*/
 
 //注册
 export const register = (areaCode, phone, phoneCode, password, recommendCode) => {

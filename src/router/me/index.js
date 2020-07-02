@@ -57,11 +57,11 @@ export default [
             auth: true
         }
     },{
-        path: '/me/KLine',
-        name: 'KLine',
-        component: () => import('../../views/me/KLine/KLine'),
+        path: '/me/exchange',
+        name: 'exchange',
+        component: () => import('../../views/me/exchange/exchange'),
         meta: {
-            title: 'KLine',
+            title: '交易所',
             auth: true
         }
     }

@@ -128,4 +128,15 @@ export const extractBase64 = (base64) => {
     }
 };
 
+import JsEncrypt from 'jsencrypt'
+
+export const encrypt = (psw) => {
+    let jse = new JsEncrypt()
+    jse.setPublicKey('MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqpshXs5E1yRdbo0MdmUZ9M/UdrUE9cesvp8+mPPHdNMGEsZ37oSKww01nOr4Q58yFAEVNrFlSoQ7SZBLD10GWW0bWEl0h1AJDafGapbhDawJ4rSdw6KME4xw+Ao2YPS5GOfSUNId66Dl8KS53eUGPi3HNu4B+NzardqjKnrf1xGI8+zJ03Q0fuwfsnmo1YsBV9UCL4bdkmLbsOvRzP0Uvx4+PlUgFhUnT+yg3DAzb0zJt4AKpGXe3St1Q6NXv4K6dFNdcJi7ULXUhhHJ3LhGEq52Ot74+TuZOKDtx1jQOuQZDXtvs1RWyDF7tIGYiD4qMfomSRGKT2VBAq9M4jF+iwIDAQAB')
+    if(psw === ''){
+        return ''
+    }
+    return jse.encrypt(psw);
+};
+
 

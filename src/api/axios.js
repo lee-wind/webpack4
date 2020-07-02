@@ -11,11 +11,13 @@ axios.defaults.baseURL = BASE_URL;
 axios.defaults.timeout = 30 * 1000;
 
 axios.interceptors.request.use(config => {
-    if(config.url.includes('auth') || config.url.includes('oauth')){
+    /*if(config.url.includes('auth') || config.url.includes('oauth')){
         config.headers.Authorization = 'Basic amRjbG91ZC1jbGllbnQtYXV0aDpqZGNsb3VkQ2xpZW50U2VjcmV0'
     } else{
         config.headers.Authorization = `bearer ${app.accessToken}`
-    }
+    }*/
+    config.headers.Authorization = `${app.accessToken}`;
+    config.headers.Language = 'zh-hk';
     return config;
 });
 

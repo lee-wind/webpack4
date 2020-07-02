@@ -1,6 +1,7 @@
 <template>
     <wind-container id="me">
         <wind-header>
+            <button class="left" @click="login">登录</button>
             <router-link class="right" to="/me/avatar">
                 头像
             </router-link>
@@ -46,8 +47,8 @@
                         <wind-link-arrow/>
                     </li>
                     <li>
-                        <router-link class="flex-middle pd" to="/me/KLine">
-                            <p>KLine</p>
+                        <router-link class="flex-middle pd" to="/me/exchange">
+                            <p>交易所</p>
                             <wind-link-arrow/>
                         </router-link>
                     </li>
@@ -61,6 +62,8 @@
 </template>
 
 <script>
+    import { encrypt } from "../../util";
+    import { login } from "../../api";
     import Former from "./messageCenter/tabItem/Former";
     import { getLanguage } from "../../locale";
     import BottomNav from "../components/BottomNav";
@@ -75,6 +78,13 @@
             BottomNav
         },
         methods: {
+            login(){
+                let password = 'a123456'
+                login('1328234871@qq.com', encrypt(password))
+                    .then(res => {
+                        this.app.accessToken = res.data.accessToken
+                    })
+            },
             toMessageCenter(){
                 this.$updateCurrentTabComponent(Former);
                 this.$router.push({
