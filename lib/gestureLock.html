@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手势锁</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #canvas{
+            display: block;
+            width: 400px;
+            height: 400px;
+            margin: 50px auto;
+            border: 1px solid pink;
+            /*background-color: pink;*/
+        }
+        #text{
+            text-align: center;
+            margin-top: 50px;
+            font-size: 28px;
+            color: #999999;
+        }
+        button{
+            border: none;
+            outer: none;
+            background-color: pink;
+            padding: 10px;
+            font-size: 16px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <p id="text">设置手势密码</p>
+    <button onclick="reset()">重置</button>
+    <canvas id="canvas"></canvas>
+    <script>
+        let text = document.getElementById('text');
+        let can = document.getElementById('canvas');
+        let ctx = can.getContext('2d');
+        let width = document.body.clientWidth;
+        canWidth = width;
+        canHeight = width;
+        can.width = canWidth;
+        can.height = canHeight;
+        let circles = [];
+        let points = [];
+        let count = 0;
+        let formalPoints = [];
+
+       /* console.log(canWidth);
+        console.log(canHeight);
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'pink';
+        ctx.moveTo(0, 0);
+        ctx.lineTo(30, 30);
+        ctx.stroke();*/
+
+        init();
+
+
+        function init(){
+            // can = document.getElementById('canvas');
+            //ctx = can.getContext('2d');
+            // canWidth= can.width;
+            // canHeight = can.height;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            for(let i = 1; i < 4; i++){
+                for(let j = 1; j < 4; j++){
+                    circles.push({
+                        x: canWidth * j / 4,
+                        y: canHeight * i / 4,
+                        r: 30,
+                    })
+                }
+            }
+            console.log(circles);
+            drawCircles();
+            //can.addEventListener('touchstart', touchstart);
+            can.addEventListener('touchmove', touchmove);
+            can.addEventListener('touchend', touchend);
+        }
+        function drawCircles() {
+            //ctx.save();
+            for (let circle of circles) {
+                ctx.beginPath();
+                ctx.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI);
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = 'pink';
+                ctx.stroke();
+                //ctx.closePath();
+            }
+            //ctx.restore();
+        }
+        function connectPoints(){
+            ctx.save();
+            ctx.fillStyle = 'pink';
+            ctx.strokeStyle = "pink";
+            for(let i of points){
+                let circle = circles[i];
+                ctx.beginPath();
+                ctx.arc(circle.x, circle.y, circle.r / 2, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.closePath();
+            }
+            let length = points.length;
+            if(!length) return;
+            ctx.beginPath();
+            ctx.moveTo(circles[points[0]].x, circles[points[0]].y);
+            for(let i = 1; i < length; i++){
+                let circle = circles[points[i]];
+                ctx.lineTo(circle.x, circle.y);
+                ctx.stroke();
+            }
+            ctx.closePath();
+            ctx.restore();
+        }
+
+        function touchmove(e) {
+            e.preventDefault();
+            ctx.clearRect(0, 0, canWidth, canHeight);
+            drawCircles();
+            connectPoints();
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = 'pink';
+            let endPoint = getPoint(e);
+            for (let i = 0; i < circles.length; i++){
+                let circle = circles[i];
+                let diff = Math.sqrt(Math.pow(circle.x - endPoint.x, 2) + Math.pow(circle.y - endPoint.y, 2));
+                if (diff <= 15) {
+                    if (points.indexOf(i) < 0) {
+                        points.push(i);
+                        break;
+                    }
+                }
+            }
+            let length = points.length;
+            if(!length) return;
+            let startPoint = circles[points[length - 1]];
+            ctx.beginPath();
+            ctx.moveTo(startPoint.x, startPoint.y);
+            ctx.lineTo(endPoint.x, endPoint.y);
+            ctx.stroke();
+            ctx.closePath();
+        }
+        function touchend(e){
+            e.preventDefault();
+            //console.log(points);
+            ctx.clearRect(0, 0, canWidth, canHeight);
+            drawCircles();
+            if (points.length < 4){
+                text.innerText = '手势密码最少4个点';
+                points = [];
+                count = 0;
+            }else{
+                if(count === 0){
+                    text.innerText = '验证手势密码'
+                    ctx.clearRect(0, 0, canWidth, canHeight);
+                    drawCircles();
+                    count++;
+                    formalPoints = [...points];
+                    points = [];
+                }else{
+                    console.log(points);
+                    console.log(formalPoints);
+                    if(formalPoints.join() == points.join()){
+                        connectPoints();
+                        text.innerText = '手势设置成功'
+                    }else{
+                        text.innerText = '手势密码错误'
+                        points = [];
+                        count = 0;
+                    }
+                }
+            }
+            // ctx.restore();
+        }
+        function getPoint(e){
+            let touch = e.touches[0];
+            return {
+                x: touch.pageX - can.getBoundingClientRect().left,
+                y: touch.pageY - can.getBoundingClientRect().top,
+            }
+        }
+
+        function reset() {
+            ctx.clearRect(0, 0, canWidth, canHeight);
+            drawCircles();
+            points = [];
+            count = 0;
+            text.innerText = '设置手势密码'
+        }
+    </script>
+</body>
+</html>

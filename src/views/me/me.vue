@@ -47,13 +47,31 @@
                         <wind-link-arrow/>
                     </li>
                     <li>
-                        <router-link class="flex-middle pd" to="/me/exchange">
+                        <router-link class="flex-middle bd-bottom pd" to="/me/exchange">
                             <p>交易所</p>
+                            <wind-link-arrow/>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link class="flex-middle bd-bottom pd" to="/me/chat?name=111">
+                            <p>聊天</p>
+                            <wind-link-arrow/>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link class="flex-middle pd" to="/me/gestureLock">
+                            <p>手势锁</p>
                             <wind-link-arrow/>
                         </router-link>
                     </li>
                 </ul>
             </wind-polygon>
+            <form>
+                <div class="input mg">
+                    <input type="text" class="pd-md radius white-bg theme-color"
+                           v-model="loginName">
+                </div>
+            </form>
         </wind-body>
         <wind-footer>
             <bottom-nav :index="3"/>
@@ -71,7 +89,8 @@
         name: "me",
         data(){
             return {
-                language: getLanguage()
+                language: getLanguage(),
+                loginName: '',
             }
         },
         components: {
@@ -80,9 +99,11 @@
         methods: {
             login(){
                 let password = 'a123456'
-                login('1328234871@qq.com', encrypt(password))
+                login(this.loginName, encrypt(password))
                     .then(res => {
-                        this.app.accessToken = res.data.accessToken
+                        this.app.accessToken = res.data.accessToken;
+                        localStorage.setItem('userName', this.loginName);
+                        localStorage.setItem('accessToken', this.app.accessToken);
                     })
             },
             toMessageCenter(){
@@ -90,7 +111,7 @@
                 this.$router.push({
                     name: 'messageCenter'
                 })
-            }
+            },
         }
     }
 </script>

@@ -106,6 +106,11 @@ pre, input, select, textarea, button, fieldset{
     background-color: transparent;
 }
 
+p[contenteditable]{
+    outline: none;
+    /*border: none;*/
+}
+
 button[disabled], input[disabled]{
     cursor: default;
 }

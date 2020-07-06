@@ -1,8 +1,8 @@
 <template>
     <wind-container id="ecology">
-        <wind-header/>
         <wind-body>
-
+            <canvas id="bgCanvas"></canvas>
+            <canvas id="aniCanvas"></canvas>
         </wind-body>
         <wind-footer>
             <bottom-nav :index="2"/>
@@ -14,9 +14,12 @@
     import BottomNav from "../components/BottomNav";
     export default {
         name: "ecology",
+        data(){
+
+        },
         components: {
             BottomNav
-        }
+        },
     }
 </script>
 

@@ -14,7 +14,7 @@
 .wind-footer{
     position: relative;
     height: 1.4rem;
-    padding-top: .08rem;
+    /*padding-top: .08rem;*/
     background-image: url('../assets/img/components/footer/footer_bg.png');
     background-size: 100% 100%;
     .polygon-btn{

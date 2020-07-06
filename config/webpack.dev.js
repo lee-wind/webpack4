@@ -22,7 +22,8 @@ module.exports = merge(common, {
         new webpack.DefinePlugin({
             "NODE_ENV": JSON.stringify(process.env.NODE_ENV),
             "BASE_URL": JSON.stringify(util.dev.origin),
-            'SOCKET_URL': JSON.stringify(util.dev.socketUrl)
+            'SOCKET_URL': JSON.stringify(util.dev.socketUrl),
+            'SOCKJS_URL': JSON.stringify(util.dev.SockJSUrl)
         }),
     ]
 });

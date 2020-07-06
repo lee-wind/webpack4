@@ -5,6 +5,7 @@ module.exports = {
         dist: 'dev',
         origin: "http://47.56.65.191:8000/",
         socketUrl: "ws://47.56.65.191:8000/websocket/market",
+        SockJSUrl: "http://47.56.65.191:8000/chat/ws"
     },
     test: {
         dist: 'test',

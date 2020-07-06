@@ -27,7 +27,7 @@
                 <div id="bottom"></div>
             </div>
 
-            <canvas id="canvas"></canvas>
+            <canvas style="display: none" id="canvas"></canvas>
 <!--            <img :src="avatar" alt="">-->
         </wind-body>
     </wind-container>
@@ -80,7 +80,8 @@
                 originX: '',
                 originY: '',
                 scaleX: '',
-                scaleY: ''
+                scaleY: '',
+                isScale: false,
             }
         },
         mounted(){
@@ -156,6 +157,7 @@
                 console.log('start');
                 let touches = e.touches;
                 if(touches.length > 1){
+                    this.isScale = true;
                     this.firstScaleStartPoint = {
                         x: touches[0].pageX,
                         y: touches[0].pageY
@@ -190,11 +192,11 @@
                     console.log(`缩放原点：${originX} ${originY}`);
 
                     let scaleX = 1 + ((this.firstScaleEndPoint.x - this.firstScaleStartPoint.x)
-                        + (this.lastScaleEndPoint.x - this.lastScaleStartPoint.x))
+                        + (this.lastScaleStartPoint.x - this.lastScaleEndPoint.x))
                         / this.originImgBoxWidth;
-                    let scaleY = 1 + ((this.firstScaleEndPoint.y - this.firstScaleStartPoint.y)
+                    let scaleY = 1 + ((this.firstScaleStartPoint.y - this.firstScaleEndPoint.y)
                         + (this.lastScaleEndPoint.y - this.lastScaleStartPoint.y))
-                        / this.originImgBoxWidth;
+                        / this.originImgBoxHeight;
                     console.log(`缩放：${scaleX} ${scaleY}`);
 
 
@@ -217,7 +219,6 @@
                     console.log(this.translateY);
                     this.originImgBox.style.transform = `translate(${this.translateX}px, ${this.translateY}px)`
                 }
-
             },
             touchend(e) {
                 e.preventDefault();
@@ -243,27 +244,35 @@
                 console.log('left：' + showImgBoxLeft);
                 console.log('right：' + showImgBoxRight);
                 console.log('bottom：' + showImgBoxBottom);
+                if(this.isScale){
+                    if(this.scaleX < 1 && this.scaleY < 1){
+                        this.scaleX = 1;
+                        this.scaleY = 1;
+                    }else{
 
-                if(originImgBoxLeft > showImgBoxLeft){
-                    this.translateX = this.translateX + (showImgBoxLeft - originImgBoxLeft);
-                }
-                if(originImgBoxRight < showImgBoxRight){
-                    this.translateX = this.translateX + (showImgBoxRight - originImgBoxRight);
-                    console.log('22');
-                }
-                if(originImgBoxTop > showImgBoxTop){
-                    this.translateY = this.translateY + (showImgBoxTop - originImgBoxTop);
-                    console.log('33');
-                }
-                if(originImgBoxBottom < showImgBoxBottom){
-                    this.translateY = this.translateY + (showImgBoxBottom - originImgBoxBottom);
-                    console.log('44');
-                }
-                this.originImgBox.style.transform = `translate(${this.translateX}px, ${this.translateY}px)`
-                this.lastX = this.translateX;
-                this.lastY = this.translateY;
+                    }
+                }else{
+                    if(originImgBoxLeft > showImgBoxLeft){
+                        this.translateX = this.translateX + (showImgBoxLeft - originImgBoxLeft);
+                    }
+                    if(originImgBoxRight < showImgBoxRight){
+                        this.translateX = this.translateX + (showImgBoxRight - originImgBoxRight);
+                        console.log('22');
+                    }
+                    if(originImgBoxTop > showImgBoxTop){
+                        this.translateY = this.translateY + (showImgBoxTop - originImgBoxTop);
+                        console.log('33');
+                    }
+                    if(originImgBoxBottom < showImgBoxBottom){
+                        this.translateY = this.translateY + (showImgBoxBottom - originImgBoxBottom);
+                        console.log('44');
+                    }
+                    this.originImgBox.style.transform = `translate(${this.translateX}px, ${this.translateY}px)`
+                    this.lastX = this.translateX;
+                    this.lastY = this.translateY;
 
-                this.getClipPoint();
+                    this.getClipPoint();
+                }
             },
             getClipPoint(){
                 let originImgBoxTop = this.originImgBox.getBoundingClientRect().top;

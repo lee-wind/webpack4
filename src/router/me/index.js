@@ -64,5 +64,25 @@ export default [
             title: '交易所',
             auth: true
         }
+    },{
+        path: '/me/chat',
+        name: 'chat',
+        component: () => import('../../views/me/chat/chat'),
+        props: (route => {
+            name: route.query.name
+        }),
+        meta: {
+            title: '聊天',
+            auth: true
+        }
+    },
+    {
+        path: '/me/gestureLock',
+        name: 'gestureLock',
+        component: () => import('../../views/me/gestureLock/gestureLock'),
+        meta: {
+            title: '手势锁',
+            auth: true
+        }
     }
 ]
