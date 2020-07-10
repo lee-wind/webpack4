@@ -42,12 +42,13 @@ export default [
         }
     },{
         path: '/me/DApp',
-        name: 'form',
+        name: 'DApp',
         component: () => import('../../views/me/DApp/DApp'),
         meta: {
             title: 'DApp',
             auth: true
         }
+
     },{
         path: '/me/avatar',
         name: 'avatar',
@@ -82,6 +83,15 @@ export default [
         component: () => import('../../views/me/gestureLock/gestureLock'),
         meta: {
             title: '手势锁',
+            auth: true
+        }
+    },
+    {
+        path: '/me/typescript',
+        name: 'typescript',
+        component: () => import('../../views/me/typescript/typescript'),
+        meta: {
+            title: 'Typescript',
             auth: true
         }
     }

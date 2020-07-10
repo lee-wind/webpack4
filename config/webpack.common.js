@@ -27,7 +27,7 @@ module.exports = {
         publicPath: './'
     },
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
+        extensions: ['.js', '.vue', '.json', '.ts', 'tsx'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': path.resolve('src'),
@@ -39,6 +39,11 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
+            },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
             {
                 test: /\.js$/,

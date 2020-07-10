@@ -9,8 +9,14 @@
             </div>-->
             <button class="clip" @click="clip">裁剪</button>
             <div style="position: absolute; right: 0">
-                <p>缩放原点：{{originX}} {{originY}}</p>
+               <!-- <p>缩放原点：{{originX}} {{originY}}</p>
                 <p>缩放：{{scaleX}} {{scaleY}}</p>
+                <p>touchStartFirstPoint: {{touchStartFirstPoint}}</p>
+                <p>touchStartEndPoint: {{touchStartEndPoint}}</p>
+                <p>touchMoveFirstPoint: {{touchMoveFirstPoint}}</p>
+                <p>touchMoveEndPoint: {{touchMoveEndPoint}}</p>-->
+                <p>diffX: {{diffX}}</p>
+                <p>diffY: {{diffY}}</p>
             </div>
             <div id="originImgBox">
                 <img :src="avatar" alt="">
@@ -45,19 +51,19 @@
                     x: 0,
                     y: 0
                 },
-                firstScaleStartPoint: {
+                touchStartFirstPoint: {
                     x: 0,
                     y: 0
                 },
-                firstScaleEndPoint: {
+                touchStartEndPoint: {
                     x: 0,
                     y: 0
                 },
-                lastScaleStartPoint: {
+                touchMoveFirstPoint: {
                     x: 0,
                     y: 0
                 },
-                lastScaleEndPoint: {
+                touchMoveEndPoint: {
                     x: 0,
                     y: 0
                 },
@@ -81,7 +87,9 @@
                 originY: '',
                 scaleX: '',
                 scaleY: '',
-                isScale: false,
+
+                diffX: '',
+                diffY: ''
             }
         },
         mounted(){
@@ -157,15 +165,18 @@
                 console.log('start');
                 let touches = e.touches;
                 if(touches.length > 1){
-                    this.isScale = true;
-                    this.firstScaleStartPoint = {
-                        x: touches[0].pageX,
-                        y: touches[0].pageY
+                    let touchStartFirstPoint = {
+                        x: touches[0].pageX.toFixed(2),
+                        y: touches[0].pageY.toFixed(2)
+                    };
+                    let touchStartEndPoint = {
+                        x: touches[touches.length - 1].pageX.toFixed(2),
+                        y: touches[touches.length - 1].pageY.toFixed(2)
                     }
-                    this.lastScaleStartPoint = {
-                        x: touches[touches.length - 1].pageX,
-                        y: touches[touches.length - 1].pageY
-                    }
+                    this.startDiff = Math.sqrt(Math.pow(touchStartFirstPoint.x - touchStartEndPoint.x, 2) +
+                        Math.pow(touchStartFirstPoint.y - touchStartEndPoint.y, 2))
+                    this.touchStartFirstPoint = touchStartFirstPoint;
+                    this.touchStartEndPoint = touchStartEndPoint;
                 }else {
                     let touch = touches[0];
                     this.start = {
@@ -179,35 +190,40 @@
                 console.log('move');
                 let touches = e.touches;
                 if(touches.length > 1){
-                    this.firstScaleEndPoint = {
-                        x: touches[0].pageX,
-                        y: touches[0].pageY
-                    }
-                    this.lastScaleEndPoint = {
-                        x: touches[touches.length - 1].pageX,
-                        y: touches[touches.length - 1].pageY
-                    }
-                    let originX = Math.abs(this.lastScaleStartPoint.x - this.lastScaleEndPoint.x) / 2 / this.originImgBoxWidth;
-                    let originY = Math.abs(this.lastScaleStartPoint.y - this.lastScaleEndPoint.y) / 2 / this.originImgBoxHeight;
-                    console.log(`缩放原点：${originX} ${originY}`);
 
-                    let scaleX = 1 + ((this.firstScaleEndPoint.x - this.firstScaleStartPoint.x)
-                        + (this.lastScaleStartPoint.x - this.lastScaleEndPoint.x))
-                        / this.originImgBoxWidth;
-                    let scaleY = 1 + ((this.firstScaleStartPoint.y - this.firstScaleEndPoint.y)
-                        + (this.lastScaleEndPoint.y - this.lastScaleStartPoint.y))
-                        / this.originImgBoxHeight;
+                    let touchMoveFirstPoint = {
+                        x: touches[0].pageX.toFixed(2),
+                        y: touches[0].pageY.toFixed(2)
+                    };
+                    let touchMoveEndPoint = {
+                        x: touches[touches.length - 1].pageX.toFixed(2),
+                        y: touches[touches.length - 1].pageY.toFixed(2)
+                    }
+
+                    // let endDiff =
+
+                    this.diffX = Math.abs((touchMoveFirstPoint.x - this.touchStartFirstPoint.x))
+                        + Math.abs((touchMoveEndPoint.x - this.touchStartEndPoint.x));
+                    this.diffY = Math.abs((touchMoveFirstPoint.y - this.touchStartFirstPoint.y)
+                        + Math.abs((touchMoveEndPoint.y - this.touchStartEndPoint.y)));
+
+                    /*let scaleX = '';
+                    let scaleY = '';
+                    let originX = '';
+                    let originY = '';
+
                     console.log(`缩放：${scaleX} ${scaleY}`);
 
-
-                    this.originImgBox.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${scaleX}, ${scaleY})`;
-                    this.originImgBox.style.transformOrigin = `${originX} ${originY}`;
 
 
                     this.scaleX = scaleX.toFixed(2);
                     this.scaleY = scaleY.toFixed(2);
                     this.originX = originX.toFixed(2);
                     this.originY = originY.toFixed(2);
+
+                    this.originImgBox.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.scaleX}, ${this.scaleY})`;
+                    this.originImgBox.style.transformOrigin = `${this.originX} ${this.originY}`;*/
+
                 }else{
                     let end = {
                         x: touches[0].pageX,
@@ -245,12 +261,10 @@
                 console.log('right：' + showImgBoxRight);
                 console.log('bottom：' + showImgBoxBottom);
                 if(this.isScale){
-                    if(this.scaleX < 1 && this.scaleY < 1){
-                        this.scaleX = 1;
-                        this.scaleY = 1;
-                    }else{
 
-                    }
+                    this.originImgBox.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.scaleX}, ${this.scaleY})`;
+                    this.originImgBox.style.transformOrigin = `${this.originX} ${this.originY}`;
+
                 }else{
                     if(originImgBoxLeft > showImgBoxLeft){
                         this.translateX = this.translateX + (showImgBoxLeft - originImgBoxLeft);

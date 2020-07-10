@@ -42,10 +42,6 @@
                             <wind-link-arrow/>
                         </router-link>
                     </li>
-                    <li class="flex-middle bd-bottom pd" @click="toMessageCenter">
-                        <p>去消息中心</p>
-                        <wind-link-arrow/>
-                    </li>
                     <li>
                         <router-link class="flex-middle bd-bottom pd" to="/me/exchange">
                             <p>交易所</p>
@@ -59,10 +55,20 @@
                         </router-link>
                     </li>
                     <li>
-                        <router-link class="flex-middle pd" to="/me/gestureLock">
+                        <router-link class="flex-middle bd-bottom pd" to="/me/gestureLock">
                             <p>手势锁</p>
                             <wind-link-arrow/>
                         </router-link>
+                    </li>
+                    <li>
+                        <router-link class="flex-middle bd-bottom pd" to="/me/typescript">
+                            <p>Typescript</p>
+                            <wind-link-arrow/>
+                        </router-link>
+                    </li>
+                    <li class="flex-middle pd" @click="toMessageCenter">
+                        <p>去消息中心</p>
+                        <wind-link-arrow/>
                     </li>
                 </ul>
             </wind-polygon>
